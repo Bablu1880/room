@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Terms & Privacy - Room Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #4facfe;
+      --secondary-color: #00f2fe;
+      --accent-color: #ff5252;
+      --text-dark: #333;
+      --text-light: #777;
+      --bg-color: #f0f2f5;
+      --card-bg: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      padding: 40px 20px;
+      color: #fff;
+      text-align: center;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 10px 20px rgba(79, 172, 254, 0.2);
+      position: relative;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(-3px);
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* CONTENT CONTAINER */
+    .container {
+      max-width: 800px;
+      margin: -30px auto 40px;
+      padding: 0 20px;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: var(--shadow);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .section {
+      margin-bottom: 35px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      color: #111827;
+    }
+
+    .section-title i {
+      font-size: 20px;
+      margin-right: 15px;
+      color: var(--primary-color);
+      background: rgba(79, 172, 254, 0.1);
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-title h2 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .policy-list {
+      list-style: none;
+    }
+
+    .policy-list li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 15px;
+      font-size: 15px;
+      color: #4b5563;
+    }
+
+    .policy-list li::before {
+      content: "\f058";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-size: 18px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-light);
+      font-size: 13px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .content-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <a href="home.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Terms & Privacy</h1>
+    <p>Hamari service use karne se pehle ise dhyaan se padhein</p>
+  </header>
+
+  <div class="container">
+    <div class="content-card">
+
+      <!-- Terms Section -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fas fa-file-contract"></i>
+          <h2>Terms & Conditions</h2>
+        </div>
+        <ul class="policy-list">
+          <li>Ye app sirf room search aur room post ke liye banaya gaya hai.</li>
+          <li>User dwara di gayi kisi bhi jankari ki poori zimmedari user ki hogi.</li>
+          <li>App par fake ya galat post karna sakht mana hai, aisa karne par account ban ho sakta hai.</li>
+          <li>Room Finder sirf ek platform hai, hum koi broker ya property owner nahi hain.</li>
+          <li>Saari deals tenant aur owner ke beech direct hoti hain, transaction me app ka koi role nahi hai.</li>
+          <li>Kisi bhi galat activity ya abuse par apka account bina notice suspend kiya ja sakta hai.</li>
+          <li>App administration bina kisi notice ke kisi bhi inappropriate post ko remove karne ka haq rakhti hai.</li>
+          <li>Terms and Conditions samay-samay par update ho sakte hain, kripya check karte rahein.</li>
+        </ul>
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 35px;">
+
+      <!-- Privacy Section -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fas fa-user-shield"></i>
+          <h2>Privacy Policy</h2>
+        </div>
+        <ul class="policy-list">
+          <li>Hum aapka Name, Mobile Number, Email aur Location collect karte hain taaki aapko behtar service de sakein.
+          </li>
+          <li>Aapka data sirf room search, property posting aur contact purposes ke liye hi use kiya jaata hai.</li>
+          <li>Hum aapka personal data kisi bhi third party ke saath bina aapki permission ke share nahi karte.</li>
+          <li>Data security hamari priority hai aur hum ise safe rakhne ke liye best technical efforts use karte hain.
+          </li>
+          <li>User kisi bhi samay account settings me jaakar apna data update ya delete karne ka request kar sakta hai.
+          </li>
+          <li>Aapki location sirf aas-paas ke rooms dikhane ke liye use ki jaati hai.</li>
+          <li>Cookies ka use sirf user experience improve karne ke liye kiya jata hai.</li>
+        </ul>
+      </div>
+
+      <div class="footer">
+        © 2026 Room Finder App. All rights reserved.<br>
+        Last Updated: Feb 05, 2026
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
