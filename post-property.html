@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Property | Lodge.com</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-color: #ff6b6b;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        .post-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .form-card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .form-header h1 {
+            color: #1a202c;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #718096;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        .upload-box {
+            border: 2px dashed #cbd5e0;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #f8fafc;
+        }
+
+        .upload-box:hover {
+            border-color: var(--accent-color);
+            background: #fff5f5;
+        }
+
+        .upload-box i {
+            font-size: 2.5rem;
+            color: #a0aec0;
+            margin-bottom: 15px;
+        }
+
+        /* Image Preview Gallery */
+        #imagePreview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .preview-img-container {
+            position: relative;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-preview {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 68, 68, 0.8);
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #4a5568;
+            cursor: pointer;
+        }
+
+        .amenity-item input {
+            width: auto;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .amenities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-card {
+                padding: 20px;
+            }
+        }
+
+        /* Success Message Styling */
+        #successOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: #48bb78;
+            margin-bottom: 20px;
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="post-container">
+        <div class="form-card">
+            <div class="form-header">
+                <h1>🏡 Post Your Property</h1>
+                <p>Fill in the details to list your room or house on Lodge.com</p>
+            </div>
+
+            <form id="propertyForm">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="title">Title / Name of Property</label>
+                        <input type="text" id="title" placeholder="e.g. Luxury Single Room near Market" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Property Category</label>
+                        <select id="category" required>
+                            <option value="">Select Category</option>
+                            <option value="room">Single Room</option>
+                            <option value="room">Family Room</option>
+                            <option value="flat">Flat / Apartment</option>
+                            <option value="villa">Villa / House</option>
+                            <option value="pg">PG / Hostel</option>
+                            <option value="farmhouse">Farmhouse</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Monthly Rent (₹)</label>
+                        <input type="number" id="price" placeholder="Amount in INR" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">City / Location</label>
+                        <input type="text" id="city" placeholder="e.g. Ranchi, Mumbai" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="landmark">Landmark / Area</label>
+                        <input type="text" id="landmark" placeholder="e.g. Near Rathyatra Chowk">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="address">Full Address</label>
+                        <textarea id="address" rows="3" placeholder="Enter complete address details"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Amenities Available</label>
+                        <div class="amenities-grid">
+                            <label class="amenity-item"><input type="checkbox"> 📶 Free Wi-Fi</label>
+                            <label class="amenity-item"><input type="checkbox"> 🚗 Parking</label>
+                            <label class="amenity-item"><input type="checkbox"> ❄️ AC</label>
+                            <label class="amenity-item"><input type="checkbox"> 🚿 Geyser</label>
+                            <label class="amenity-item"><input type="checkbox"> 🍽️ Kitchen</label>
+                            <label class="amenity-item"><input type="checkbox"> 🛡️ Security</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Upload Property Images</label>
+                        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                            <input type="file" id="fileInput" hidden multiple accept="image/*">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h3>Click to Upload Photos</h3>
+                            <p>PNG, JPG up to 10MB (Multiple allowed)</p>
+                        </div>
+                        <div id="imagePreview"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Post My Property
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Feedback Overlay -->
+    <div id="successOverlay">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h1>Property Posted Successfully!</h1>
+        <p>Your listing is now live and under review.</p>
+        <button onclick="window.location.href='index.html'" class="submit-btn"
+            style="width: auto; margin-top: 30px; padding: 12px 40px;">Back to Home</button>
+    </div>
+
+    <script>
+        // Check Actual Login Status
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+        window.onload = () => {
+            if (!isLoggedIn) {
+                alert("Please login first to post your property!");
+                window.location.href = "signup.html";
+            }
+        };
+
+        const form = document.getElementById('propertyForm');
+        const overlay = document.getElementById('successOverlay');
+        const fileInput = document.getElementById('fileInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        // Image Preview Logic
+        fileInput.addEventListener('change', function () {
+            imagePreview.innerHTML = ''; // Clear previous previews
+            const files = Array.from(this.files);
+
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const div = document.createElement('div');
+                    div.className = 'preview-img-container';
+                    div.innerHTML = `
+                        <img src="${e.target.result}">
+                        <button class="remove-preview" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+                    `;
+                    imagePreview.appendChild(div);
+                }
+                reader.readAsDataURL(file);
+            });
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Collect Form Data
+            const propertyData = {
+                id: Date.now(),
+                title: document.getElementById('title').value,
+                category: document.getElementById('category').options[document.getElementById('category').selectedIndex].text,
+                price: document.getElementById('price').value,
+                city: document.getElementById('city').value,
+                landmark: document.getElementById('landmark').value,
+                address: document.getElementById('address').value,
+                // Using a high-quality placeholder image for demo
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
+            };
+
+            // Save to LocalStorage
+            try {
+                let properties = JSON.parse(localStorage.getItem('postedProperties')) || [];
+                properties.push(propertyData);
+                localStorage.setItem('postedProperties', JSON.stringify(properties));
+                console.log("Property saved successfully to local storage!");
+            } catch (err) {
+                console.error("Storage Error: ", err);
+                alert("Storage is full or error occurred!");
+            }
+
+            // Show loading state on button
+            const btn = form.querySelector('.submit-btn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+            btn.disabled = true;
+
+            // Simulate Processing
+            setTimeout(() => {
+                overlay.style.display = 'flex';
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>
