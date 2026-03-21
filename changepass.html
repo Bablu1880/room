@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Change Password | Lodge.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --primary-color: #4facfe;
+            --bg-color: #f0f2f5;
+            --text-dark: #333;
+            --text-light: #777;
+            --card-bg: #fff;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+            transform: translateX(-5px);
+        }
+
+        .change-pass-container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: rgba(79, 172, 254, 0.1);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transform: rotate(-10deg);
+        }
+
+        .icon-box i {
+            font-size: 35px;
+            color: var(--primary-color);
+        }
+
+        .header h1 {
+            font-size: 26px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            margin-left: 5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 16px 50px 16px 20px;
+            border: 2px solid #f0f0f0;
+            border-radius: 18px;
+            outline: none;
+            transition: var(--transition);
+            font-size: 15px;
+            background: #f8f9fa;
+        }
+
+        .input-wrapper i.toggle-eye {
+            position: absolute;
+            right: 20px;
+            color: #bbb;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .input-wrapper i.toggle-eye:hover {
+            color: var(--primary-color);
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary-color);
+            background: #fff;
+            box-shadow: 0 0 0 5px rgba(79, 172, 254, 0.1);
+        }
+
+        /* Password Strength Meter */
+        .strength-container {
+            margin-top: 12px;
+            padding: 0 5px;
+        }
+
+        .strength-meter {
+            height: 6px;
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .strength-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .btn-update {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-update:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(79, 172, 254, 0.5);
+        }
+
+        .btn-update:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-update:disabled {
+            background: #ddd;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        /* Success & Loading Animation */
+        .success-box {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: #4ade80;
+            margin-bottom: 25px;
+            display: inline-block;
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-box h2 {
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .success-box p {
+            color: var(--text-light);
+            margin-bottom: 35px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="home.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Profile
+    </a>
+
+    <div class="change-pass-container">
+        <!-- Header & Form -->
+        <div id="mainContent">
+            <div class="header">
+                <div class="icon-box">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h1>Update Security</h1>
+                <p>Ensure your account stays protected with a strong, multi-character password.</p>
+            </div>
+
+            <div id="passForm">
+                <div class="input-group">
+                    <label>Current Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="oldPass" placeholder="Enter current password">
+                        <i class="fas fa-eye toggle-eye"></i>
+                    </div>
+                    <a href="forgotpass.html"
+                        style="font-size: 12px; color: var(--primary-color); text-decoration: none; display: block; margin-top: 8px; text-align: right; font-weight: 500;">Forgot
+                        Password?</a>
+                </div>
+
+                <div class="input-group">
+                    <label>New Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="newPass" placeholder="Create new password">
+                        <i class="fas fa-eye toggle-eye"></i>
+                    </div>
+                    <div class="strength-container">
+                        <div class="strength-meter">
+                            <div class="strength-bar" id="strengthBar"></div>
+                        </div>
+                        <div class="strength-info">
+                            <span>Security Level:</span>
+                            <span id="strengthText" style="color: #bbb;">N/A</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="confPass" placeholder="Repeat new password">
+                        <i class="fas fa-eye toggle-eye"></i>
+                    </div>
+                </div>
+
+                <button class="btn-update" id="updateBtn">
+                    Confirm Changes
+                </button>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-box" id="successBox">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h2>Password Changed!</h2>
+            <p>Your security credentials have been updated successfully.</p>
+            <button class="btn-update" onclick="window.location.href='home.html'">
+                Return Account
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Visibility
+        document.querySelectorAll('.toggle-eye').forEach(eye => {
+            eye.addEventListener('click', function () {
+                const input = this.previousElementSibling;
+                const isPass = input.type === 'password';
+                input.type = isPass ? 'text' : 'password';
+                this.classList.toggle('fa-eye', !isPass);
+                this.classList.toggle('fa-eye-slash', isPass);
+            });
+        });
+
+        // Strength Logic
+        const newPass = document.getElementById('newPass');
+        const bar = document.getElementById('strengthBar');
+        const txt = document.getElementById('strengthText');
+
+        newPass.addEventListener('input', () => {
+            const val = newPass.value;
+            let score = 0;
+            if (val.length >= 8) score += 30;
+            if (/[A-Z]/.test(val)) score += 20;
+            if (/[0-9]/.test(val)) score += 20;
+            if (/[^A-Za-z0-9]/.test(val)) score += 30;
+
+            bar.style.width = score + '%';
+
+            if (score === 0) {
+                txt.innerText = 'N/A';
+                txt.style.color = '#bbb';
+                bar.style.background = '#eee';
+            } else if (score <= 30) {
+                txt.innerText = 'Weak';
+                txt.style.color = '#ff5252';
+                bar.style.background = '#ff5252';
+            } else if (score <= 70) {
+                txt.innerText = 'Moderate';
+                txt.style.color = '#ffc107';
+                bar.style.background = '#ffc107';
+            } else {
+                txt.innerText = 'Very Strong';
+                txt.style.color = '#4ade80';
+                bar.style.background = '#4ade80';
+            }
+        });
+
+        // Update Simulation
+        const btn = document.getElementById('updateBtn');
+        const main = document.getElementById('mainContent');
+        const success = document.getElementById('successBox');
+
+        btn.addEventListener('click', () => {
+            const oldVal = document.getElementById('oldPass').value;
+            const newVal = document.getElementById('newPass').value;
+            const confVal = document.getElementById('confPass').value;
+
+            if (!oldVal || !newVal || !confVal) {
+                alert('All fields are required!');
+                return;
+            }
+
+            if (newVal !== confVal) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Applying Changes...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                main.style.display = 'none';
+                success.style.display = 'block';
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
