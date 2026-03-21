@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Information | Lodge.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --primary-color: #4facfe;
+            --bg-color: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 20px 20px 100px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto 0;
+        }
+
+        .back-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: var(--white);
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* PROFILE PICTURE SECTION */
+        .profile-pic-section {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .img-wrapper {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 50%;
+            padding: 5px;
+            background: var(--primary-gradient);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+
+        .edit-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            color: var(--primary-color);
+            transition: 0.3s;
+        }
+
+        .edit-btn:hover {
+            transform: scale(1.1);
+            background: #f0f9ff;
+        }
+
+        /* FORM SECTION */
+        .info-card {
+            background: white;
+            border-radius: 35px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .full-row {
+            grid-column: span 2;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 5px;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 18px;
+            border: 2px solid #f1f5f9;
+            outline: none;
+            transition: 0.3s;
+            background: #f8fafc;
+            font-size: 15px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: #4facfe;
+            background: white;
+            box-shadow: 0 0 0 5px rgba(79, 172, 254, 0.1);
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 20px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.5);
+        }
+
+        /* SUCCESS MODAL */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: white;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 40px;
+            padding: 40px;
+            text-align: center;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #effaf3;
+            color: #22c55e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+        }
+
+        @media (max-width: 600px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-row {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="back-nav">
+        <a href="home.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>My Profile</h1>
+            <p>Complete your profile to get a verified experience</p>
+        </header>
+
+        <div class="profile-pic-section">
+            <div class="img-wrapper">
+                <img src="mypic.jpg.png" alt="Profile" id="previewImg">
+                <label for="imgUpload" class="edit-btn">
+                    <i class="fas fa-pen"></i>
+                </label>
+            </div>
+            <input type="file" id="imgUpload" style="display: none;" onchange="handleImgChange(event)">
+            <p style="font-size: 13px; color: var(--text-light); margin-top: 15px;">Update your profile picture</p>
+        </div>
+
+        <div class="info-card">
+            <form id="profileForm">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" value="Bablu Tudu" placeholder="Your Name">
+                    </div>
+                    <div class="input-group">
+                        <label>Username</label>
+                        <input type="text" value="@bablu_tudu" placeholder="@username">
+                    </div>
+                    <div class="input-group full-row">
+                        <label>Email Address</label>
+                        <input type="email" value="bablu.tudu@gmail.com" placeholder="email@example.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input type="tel" value="+91 89695 44211" placeholder="+91 XXXX XXXX">
+                    </div>
+                    <div class="input-group">
+                        <label>Gender</label>
+                        <select>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Birthday</label>
+                        <input type="date" value="2000-05-20">
+                    </div>
+                    <div class="input-group">
+                        <label>Location</label>
+                        <input type="text" value="Jamshedpur, Jharkhand" placeholder="City, State">
+                    </div>
+                    <div class="input-group full-row">
+                        <label>Personal Bio</label>
+                        <textarea rows="3"
+                            placeholder="Tell us something about yourself...">Born to express, Not to impress.</textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="save-btn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div class="modal" id="successPopup">
+        <div class="modal-card">
+            <div class="success-icon"><i class="fas fa-check"></i></div>
+            <h2 style="font-size: 24px; margin-bottom: 10px;">Profile Updated!</h2>
+            <p style="color: #64748b; font-size: 14px; margin-bottom: 30px;">Your personal information has been saved
+                successfully.</p>
+            <button class="save-btn" onclick="location.href='home.html'" style="margin-top: 0;">Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const popup = document.getElementById('successPopup');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Saving...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                popup.style.display = 'flex';
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 1500);
+        });
+
+        function handleImgChange(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    document.getElementById('previewImg').src = event.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+
+</html>
