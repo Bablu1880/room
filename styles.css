@@ -1,0 +1,135 @@
+:root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --input-bg: rgba(255, 255, 255, 0.05);
+    --input-focus-border: rgba(255, 255, 255, 0.5);
+    --transition-speed: 0.3s;
+}
+
+body {
+    background-image: url('image2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: hsl(359, 94%, 51%);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Login Container (formerly Glass) */
+.glass-container {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom Inputs */
+.glass-input {
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6;
+    color: #212529 !important;
+}
+
+.glass-input:focus {
+    background: #ffffff !important;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+}
+
+.glass-input::placeholder {
+    color: #adb5bd;
+}
+
+/* Custom Utilities for Hover */
+.hover-text-white:hover {
+    color: white !important;
+}
+
+.transition-colors {
+    transition: color var(--transition-speed);
+}
+
+/* Checkbox Customization */
+.form-check-input {
+    background-color: var(--input-bg);
+    border-color: var(--glass-border);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Login Button */
+.login-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-speed);
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.5rem 0;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.divider:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.divider:not(:empty)::after {
+    margin-left: .5em;
+}
+
+/* Google Button */
+.google-btn {
+    background: white;
+    color: #333;
+    border: none;
+    transition: all var(--transition-speed);
+    font-weight: 500;
+}
+
+.google-btn:hover {
+    background: #f1f1f1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
