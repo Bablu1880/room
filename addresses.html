@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Saved Addresses | Lodge.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --primary-color: #4facfe;
+            --bg-color: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 20px 20px 100px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto 0;
+        }
+
+        .back-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: var(--white);
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* ADDRESS CARDS */
+        .address-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .address-card {
+            background: white;
+            border-radius: 30px;
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .address-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            border-color: #4facfe;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .home-icon {
+            background: rgba(79, 172, 254, 0.1);
+            color: #4facfe;
+        }
+
+        .work-icon {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+        }
+
+        .address-info {
+            flex: 1;
+        }
+
+        .address-type {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .default-badge {
+            font-size: 10px;
+            background: #effaf3;
+            color: #22c55e;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .address-text {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            background: #f8fafc;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background: #f1f5f9;
+            color: var(--primary-color);
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 20px;
+            background: white;
+            border: 2px dashed #cbd5e1;
+            border-radius: 25px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: #f0f9ff;
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 35px;
+            padding: 35px;
+            position: relative;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px solid #f1f5f9;
+            background: #f8fafc;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #4facfe;
+            background: white;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="back-nav">
+        <a href="home.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Saved Addresses</h1>
+            <p>Manage your delivery and residential locations</p>
+        </header>
+
+        <div class="address-list">
+            <div class="address-card">
+                <div class="icon-box home-icon"><i class="fas fa-home"></i></div>
+                <div class="address-info">
+                    <div class="address-type">Home <span class="default-badge">Default</span></div>
+                    <div class="address-text">Flat 402, Sunshine Residency, Marine Drive,<br>Jamshedpur, Jharkhand -
+                        831001</div>
+                </div>
+                <div class="card-actions">
+                    <button class="action-btn"><i class="fas fa-pen"></i></button>
+                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="address-card">
+                <div class="icon-box work-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="address-info">
+                    <div class="address-type">Office</div>
+                    <div class="address-text">Tata Steel Head Office, Northern Town,<br>Bistupur, Jamshedpur - 831001
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button class="action-btn"><i class="fas fa-pen"></i></button>
+                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <button class="add-btn" onclick="document.getElementById('addrModal').style.display='flex'">
+            <i class="fas fa-plus-circle"></i> Add New Address
+        </button>
+    </div>
+
+    <div class="modal" id="addrModal">
+        <div class="modal-card">
+            <h2 style="margin-bottom: 20px;">Add Address</h2>
+            <div class="input-group">
+                <label>Label</label>
+                <select>
+                    <option>Home</option>
+                    <option>Office</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Receiver Name</label>
+                <input type="text" placeholder="e.g. Bablu Tudu">
+            </div>
+            <div class="input-group">
+                <label>Full Address</label>
+                <textarea rows="3" placeholder="Flat, Street, Area..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <div class="input-group" style="flex:1;"><label>City</label><input type="text"></div>
+                <div class="input-group" style="flex:1;"><label>Pincode</label><input type="text"></div>
+            </div>
+            <button class="save-btn" onclick="saveAddr()">Save Address</button>
+            <button
+                style="width:100%; margin-top:10px; background:none; border:none; color:var(--text-light); cursor:pointer;"
+                onclick="document.getElementById('addrModal').style.display='none'">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function saveAddr() {
+            const btn = document.querySelector('.save-btn');
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Saving...';
+            setTimeout(() => {
+                document.getElementById('addrModal').style.display = 'none';
+                btn.innerHTML = 'Save Address';
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>
