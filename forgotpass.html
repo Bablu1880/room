@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password | Lodge.com</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .step-content {
+            display: none;
+        }
+
+        .step-active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .icon-badge {
+            width: 70px;
+            height: 70px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 12px;
+            margin: 0 5px;
+        }
+
+        .resend-link {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .resend-link span {
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .success-checkmark {
+            color: #22c55e;
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Glassmorphism overrides for this page */
+        .glass-container {
+            max-width: 480px;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <header class="w-100 py-3 px-4 d-flex justify-content-between align-items-center bg-white shadow-sm">
+        <div class="logo">
+            <a href="index.html"><img src="logo.jpg" alt="Lodge.com" style="height: 50px; width: auto;"></a>
+        </div>
+        <nav class="d-none d-md-block">
+            <a href="index.html" class="text-decoration-none text-dark fw-medium mx-2">Home</a>
+            <a href="login.html" class="text-decoration-none text-dark fw-medium mx-2">Sign In</a>
+        </nav>
+    </header>
+
+    <div class="flex-grow-1 d-flex align-items-center justify-content-center w-100 py-5">
+        <div class="glass-container p-4 p-md-5 rounded-4 shadow-lg text-center">
+
+            <!-- Step 1: Account Recovery -->
+            <div id="step1" class="step-content step-active">
+                <div class="icon-badge">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h2 class="fw-bold text-dark mb-3">Forgot Password?</h2>
+                <p class="text-secondary mb-4">No worries! Enter your email or phone and we'll send you a reset code.
+                </p>
+
+                <div class="text-start mb-4">
+                    <label class="form-label text-secondary fw-medium">Email or Phone Number</label>
+                    <input type="text" class="form-control glass-input py-3" id="recoveryInput"
+                        placeholder="name@example.com">
+                </div>
+
+                <button class="btn btn-primary w-100 py-3 fw-semibold login-btn" onclick="nextStep(2)">
+                    <span>Send Verification Code</span>
+                </button>
+
+                <div class="mt-4">
+                    <a href="login.html" class="text-decoration-none text-secondary small">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Login
+                    </a>
+                </div>
+            </div>
+
+            <!-- Step 2: OTP Verification -->
+            <div id="step2" class="step-content">
+                <div class="icon-badge">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h2 class="fw-bold text-dark mb-3">Verify Identity</h2>
+                <p class="text-secondary mb-4">We've sent a 4-digit verification code to your device.</p>
+
+                <div class="d-flex justify-content-center mb-4">
+                    <input type="text" class="form-control glass-input otp-input" maxlength="1"
+                        onkeyup="moveFocus(this, 'otp2')">
+                    <input type="text" class="form-control glass-input otp-input" maxlength="1" id="otp2"
+                        onkeyup="moveFocus(this, 'otp3')">
+                    <input type="text" class="form-control glass-input otp-input" maxlength="1" id="otp3"
+                        onkeyup="moveFocus(this, 'otp4')">
+                    <input type="text" class="form-control glass-input otp-input" maxlength="1" id="otp4">
+                </div>
+
+                <button class="btn btn-primary w-100 py-3 fw-semibold login-btn" onclick="nextStep(3)">
+                    <span>Verify Code</span>
+                </button>
+
+                <div class="mt-4">
+                    <p class="resend-link mb-0">Didn't receive the code? <span>Resend Code</span></p>
+                </div>
+            </div>
+
+            <!-- Step 3: Reset Password -->
+            <div id="step3" class="step-content">
+                <div class="icon-badge">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h2 class="fw-bold text-dark mb-3">Set New Password</h2>
+                <p class="text-secondary mb-4">Create a strong password that you haven't used before.</p>
+
+                <div class="text-start mb-3">
+                    <label class="form-label text-secondary fw-medium">New Password</label>
+                    <input type="password" class="form-control glass-input py-3" placeholder="••••••••">
+                </div>
+
+                <div class="text-start mb-4">
+                    <label class="form-label text-secondary fw-medium">Confirm New Password</label>
+                    <input type="password" class="form-control glass-input py-3" placeholder="••••••••">
+                </div>
+
+                <button class="btn btn-primary w-100 py-3 fw-semibold login-btn" onclick="nextStep(4)">
+                    <span>Reset Password</span>
+                </button>
+            </div>
+
+            <!-- Step 4: Success Message -->
+            <div id="step4" class="step-content">
+                <div class="success-checkmark">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="fw-bold text-dark mb-3">Password Reset!</h2>
+                <p class="text-secondary mb-4">Your password has been successfully updated. You can now log in with your
+                    new password.</p>
+
+                <button class="btn btn-primary w-100 py-3 fw-semibold login-btn"
+                    onclick="window.location.href='login.html'">
+                    <span>Back to Sign In</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function nextStep(step) {
+            const currentStep = document.querySelector('.step-active');
+            const btn = event.currentTarget;
+            const originalContent = btn.innerHTML;
+
+            // Show loading state
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Processing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Hide current step
+                currentStep.classList.remove('step-active');
+
+                // Show next step
+                const nextStepEl = document.getElementById('step' + step);
+                nextStepEl.classList.add('step-active');
+
+                // Reset button
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }, 1000);
+        }
+
+        function moveFocus(current, nextId) {
+            if (current.value.length >= 1) {
+                document.getElementById(nextId).focus();
+            }
+        }
+    </script>
+</body>
+
+</html>
