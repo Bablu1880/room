@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Design and Development of an Online Room & PG Finder System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS LINK -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <header>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; display: flex; align-items: center;">
+                <img src="logo.jpg" alt="Lodge.com">
+            </a>
+        </div>
+        <div class="nav-right-mobile">
+            <a id="mobileAuthLink" href="login.html" class="mobile-top-btn">Login</a>
+            <div class="menu-icon-mobile" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+        <nav id="navLinks">
+            <a href="home.html" class="mobile-only-link"><i class="fas fa-user-circle"></i> Profile</a>
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Buyer <i class="fas fa-chevron-down"
+                        style="font-size: 12px;"></i></a>
+                <div class="dropdown-content">
+                    <a href="buyer.html"><span>🏠</span> Hotels</a>
+                    <a href="buyer.html"><span>🏠</span> Single Room on rent, 1BHK, 2BHK</a>
+                    <a href="buyer.html"><span>🏠</span> Family Room on rent, 1BHK, 2BHK</a>
+                    <a href="buyer.html"><span>🏢</span> Flat apartments</a>
+                    <a href="buyer.html"><span>🏡</span> Villa on Rent</a>
+                    <a href="buyer.html"><span>🏘️</span> PG Management</a>
+                    <a href="buyer.html"><span>🌳</span> Farm house / Resort type</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Seller <i class="fas fa-chevron-down"
+                        style="font-size: 12px;"></i></a>
+                <div class="dropdown-content">
+                    <a href="post-property.html"><span>📢</span> Post Your Property</a>
+                    <a href="home.html"><span>🏨</span> Hostels</a>
+                    <a href="home.html"><span>🏨</span> Hostels / Room for Rent</a>
+                    <a href="home.html"><span>🏢</span> Flats / Apartments</a>
+                    <a href="home.html"><span>🏡</span> House / Villa</a>
+                    <a href="home.html"><span>🏘️</span> PG Management</a>
+                </div>
+            </div>
+            <a href="service.html"><i class="fas fa-concierge-bell" style="font-size: 14px;"></i> Services</a>
+            <a class="Post Property" href="post-property.html"><i class="fas fa-plus-circle"></i> Post Property</a>
+
+            <!-- Desktop Only Links -->
+            <a id="authLink" href="login.html" class="desktop-only-btn">Login</a>
+            <a href="home.html" class="desktop-only-home">
+                <i class="fas fa-user-circle"></i>
+                <span>Home</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- ===== HERO + SEARCH ===== -->
+    <section class="hero">
+        <div class="hero-content" style="text-align: center; color: white; z-index: 1; margin-bottom: 20px;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Find Your Perfect Room</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Affordable Rooms & PGs Near You</p>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search City">
+            <input type="text" placeholder="Search City Landmark">
+            <button>Search</button>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT LAYOUT ===== -->
+    <main class="main-container">
+
+        <!-- SIDEBAR LEFT (30%) -->
+        <aside class="sidebar-left">
+            <div class="attractive-box">
+                <h3 class="attractive-title">Why Lodge.com?</h3>
+
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="feature-text">
+                        <h4>Verified Listings</h4>
+                        <p>100% Genuine and visited properties.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="feature-text">
+                        <h4>Instant Booking</h4>
+                        <p>Connect with owners in seconds.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="feature-text">
+                        <h4>Safe Payments</h4>
+                        <p>Secure transactions guaranteed.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                    <div class="feature-text">
+                        <h4>24/7 Support</h4>
+                        <p>We are always here to help you.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="promo-card">
+                <i class="fas fa-gift" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                <h3>Limited Deal!</h3>
+                <p>Get zero brokerage on premium PGs this month only!</p>
+                <button class="promo-btn">Claim Offer</button>
+            </div>
+        </aside>
+
+        <!-- CONTENT RIGHT (70%) -->
+        <div class="content-right">
+            <section class="card-section">
+
+                <!-- CARD 1 -->
+                <div class="card" data-owner-name="Bablu Tudu" data-owner-phone="8969971880"
+                    data-images="https://images.unsplash.com/photo-1600585154340-be6161a56a0c,https://images.unsplash.com/photo-1522708323590-d24dbb6b0267,https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+                    data-full-address="H.No 124, Near Lal Market, Sector 4, Ranchi, Jharkhand - 834001"
+                    data-room-details="Window Facing: East (Sunrise view) | Ventilation: 2 Large Windows | Floor: 2nd Floor | Furnishing: Semi-Furnished">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c">
+                    <div class="card-body">
+                        <h3>1 BHK Room</h3>
+                        <p>Near Market</p>
+                        <div class="price">₹ 2,500 / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 2 -->
+                <div class="card" data-owner-name="rajesh soren" data-owner-phone="8969971880"
+                    data-images="https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12,https://images.unsplash.com/photo-1560448204-61dc36dc98c8,https://images.unsplash.com/photo-1586023492125-27b2c045efd7"
+                    data-full-address="Flat B-201, Green Valley PG, Kanke Road, Ranchi - 834008"
+                    data-room-details="Window Facing: West | Ventilation: Cross ventilation with balcony | Floor: Ground Floor | Furnishing: Fully Furnished">
+                    <img src="https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12">
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 4,500 / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 3 (Carousel Example) -->
+                <div class="card has-carousel" data-owner-name="Priya Patel" data-owner-phone="9123456789"
+                    data-images="https://images.unsplash.com/photo-1568605114967-8130f3a36994,https://images.unsplash.com/photo-1570129477492-45c003edd2be,https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83">
+                    <div class="carousel-container">
+                        <div class="carousel-slides">
+                            <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994">
+                            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be">
+                            <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83">
+                        </div>
+                        <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <h3>2 BHK House</h3>
+                        <p>Parking Available</p>
+                        <div class="price">₹ 12,000 / month</div>
+                        <button class="view-btn" onclick="openModal(this)">View</button>
+                    </div>
+                </div>
+
+
+                <!-- CARD 4 (Carousel Example) -->
+                <div class="card has-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-slides">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688">
+                        </div>
+                        <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 1500/bed / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 5 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af">
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 3,500 / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 6 -->
+                <div class="card">
+                    <img
+                        src="https://housing-images.n7net.in/01c16c28/fcda80520f6f53e6ccafe1a63b4f5240/v0/medium/3_bhk_apartment-for-rent-kokar-Ranchi-hall.jpg">
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 7,500 / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 7 -->
+                <div class="card">
+                    <img src="https://imagecdn.99acres.com/media1/35075/11/701511059M-1768915948300.webp">
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 2,500 / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 8 -->
+                <div class="card">
+                    <img src="https://imagecdn.99acres.com/media1/34536/6/690726291M-1766726829841.webp">
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 3,000 / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 9-->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12">
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 1500/bed / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 10 -->
+                <div class="card">
+                    <img src="https://imagecdn.99acres.com/media1/32519/5/650385311O-1766068227494.jpg">
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 5,500 / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 11 -->
+                <div class="card">
+                    <img src="https://dyimg1.realestateindia.com/prop_images/3106160/1433924_1-350x350.jpg">
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 4,000 / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- CARD 12 -->
+                <div class="card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLzZmxj9UjHf7V6B3nC6zPwW6lbcBUF4LJQ&s">
+                    <div class="card-body">
+                        <h3>Single Room</h3>
+                        <p>For Students</p>
+                        <div class="price">₹ 500 / month</div>
+                        <button class="view-btn">View</button>
+                    </div>
+                </div>
+                <!-- yaha age aise hi card add karte jaiye save krne pr direct brower par dikhega -->
+
+            </section>
+        </div>
+    </main>
+
+    <!-- ===== DETAILS MODAL ===== -->
+    <div id="houseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-body">
+                <!-- Modal Carousel -->
+                <div class="modal-carousel">
+                    <div class="modal-slides" id="modalSlides">
+                        <!-- Images will be injected here -->
+                    </div>
+                    <button class="modal-carousel-btn prev" id="modalPrev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="modal-carousel-btn next" id="modalNext"><i class="fas fa-chevron-right"></i></button>
+                    <div class="modal-dots" id="modalDots"></div>
+                </div>
+
+                <h2 id="modalTitle">House Title</h2>
+                <div id="modalPrice" class="price" style="font-size: 1.5rem; margin-bottom: 20px;">Price</div>
+
+                <div class="modal-info-section">
+                    <h3><i class="fas fa-info-circle"></i> Property Description</h3>
+                    <p id="modalDesc">House Description</p>
+                </div>
+
+                <div class="modal-info-section">
+                    <h3><i class="fas fa-map-marked-alt"></i> Full Address</h3>
+                    <p id="modalAddress">Address not provided</p>
+                </div>
+
+                <div class="modal-info-section">
+                    <h3><i class="fas fa-door-open"></i> Room Details & Design</h3>
+                    <p id="modalDetails">Details not provided</p>
+                </div>
+
+                <!-- Contact Owner Section -->
+                <div class="contact-section">
+                    <h3>Contact Owner</h3>
+                    <p>Name: <span id="ownerName">John Doe</span></p>
+                    <p>Phone: <span id="ownerPhone">+91-9876543210</span></p>
+                    <button id="contactBtn">Call Owner</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer style="background: #333; color: #fff; padding: 40px 20px; text-align: center; margin-top: 50px;">
+        <div style="margin-bottom: 25px;">
+            <img src="logo.jpg" alt="Lodge.com"
+                style="height: 50px; filter: brightness(0) invert(1); margin-bottom: 10px;">
+            <p style="opacity: 0.7; font-size: 14px; max-width: 400px; margin: 0 auto;">Finding your perfect room made
+                easy. The most trusted platform for rooms and PGs.</p>
+        </div>
+        <div style="margin-bottom: 25px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px 25px;">
+            <a href="index.html" style="color: #fff; text-decoration: none; font-size: 14px;">Home</a>
+            <a href="buyer.html" style="color: #fff; text-decoration: none; font-size: 14px;">Buyer</a>
+            <a href="post-property.html" style="color: #fff; text-decoration: none; font-size: 14px;">Seller</a>
+            <a href="signup.html" style="color: #fff; text-decoration: none; font-size: 14px;">Sign Up</a>
+            <a href="term.html" style="color: #fff; text-decoration: none; font-size: 14px;">Terms & Privacy</a>
+            <a href="service.html" style="color: #fff; text-decoration: none; font-size: 14px;">Services</a>
+            <a href="help.html" style="color: #fff; text-decoration: none; font-size: 14px;">Help Center</a>
+        </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+            <p style="font-size: 12px; opacity: 0.5;">© 2026 Room Finder App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Dropdown toggle on click for all dropdowns
+        const dropBtns = document.querySelectorAll('.dropbtn');
+
+        dropBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Close other open dropdowns first
+                const allContents = document.querySelectorAll('.dropdown-content');
+                const currentContent = btn.nextElementSibling;
+
+                allContents.forEach(content => {
+                    if (content !== currentContent) {
+                        content.classList.remove('show');
+                    }
+                });
+
+                currentContent.classList.toggle('show');
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-content').forEach(content => {
+                    content.classList.remove('show');
+                });
+            }
+        });
+        // Carousel Logic
+        function initCarousels() {
+            document.querySelectorAll('.carousel-container').forEach(container => {
+                const slides = container.querySelector('.carousel-slides');
+                const images = container.querySelectorAll('.carousel-slides img');
+                const dots = container.querySelectorAll('.dot');
+                let counter = 0;
+
+                const nextBtn = container.querySelector('.next-btn');
+                const prevBtn = container.querySelector('.prev-btn');
+
+                if (nextBtn && prevBtn) {
+                    nextBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        counter++;
+                        if (counter >= images.length) counter = 0;
+                        updateCarousel();
+                    });
+
+                    prevBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        counter--;
+                        if (counter < 0) counter = images.length - 1;
+                        updateCarousel();
+                    });
+                }
+
+                function updateCarousel() {
+                    slides.style.transform = `translateX(${-counter * 100}%)`;
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === counter);
+                    });
+                }
+            });
+        }
+
+        // Dynamic Property Loader
+        function loadPostedProperties() {
+            const cardSection = document.querySelector('.card-section');
+            if (!cardSection) return;
+
+            const postedProps = JSON.parse(localStorage.getItem('postedProperties')) || [];
+
+            if (postedProps.length > 0) {
+                console.log("Found " + postedProps.length + " new properties. Loading now...");
+            }
+
+            postedProps.forEach(prop => {
+                const card = document.createElement('div');
+                card.className = 'card has-carousel'; // Giving it the premium class
+                card.style.position = 'relative';
+                card.innerHTML = `
+                    <div style="position: absolute; top: 10px; left: 10px; background: #ff6b6b; color: white; padding: 5px 12px; border-radius: 20px; font-size: 10px; font-weight: bold; z-index: 5; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">NEW POST</div>
+                    <img src="${prop.image}" alt="${prop.title}" style="width: 100%; height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h3>${prop.title}</h3>
+                        <p><i class="fas fa-map-marker-alt" style="color: #ff6b6b; font-size: 12px;"></i> ${prop.landmark}, ${prop.city}</p>
+                        <div class="price">₹ ${prop.price} / month</div>
+                        <button class="view-btn" onclick="openModal(this)">View</button>
+                    </div>
+                `;
+                cardSection.prepend(card);
+            });
+        }
+
+        // Initialize everything
+        initCarousels();
+        loadPostedProperties();
+    </script>
+</body>
+
+</html>
