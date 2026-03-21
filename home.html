@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #4facfe;
+            --secondary-color: #00f2fe;
+            --accent-color: #ff5252;
+            --text-dark: #333;
+            --text-light: #777;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            padding-bottom: 80px;
+        }
+
+        /* HEADER / PROFILE CARD */
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 40px 20px 60px;
+            border-radius: 0 0 40px 40px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 15px;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            object-fit: cover;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-icon {
+            position: absolute;
+            bottom: 5px;
+            right: 0;
+            background: #fff;
+            color: var(--primary-color);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .edit-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .profile-bio {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* STATS CARD */
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 500px;
+            margin: -40px auto 20px;
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: #eee;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .section-header {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header i {
+            font-size: 18px;
+            margin-right: 12px;
+            color: var(--primary-color);
+            background: rgba(79, 172, 254, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            flex-grow: 1;
+        }
+
+        .section-link {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .menu-item {
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-bottom: 1px solid #f9f9f9;
+            cursor: pointer;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item:hover {
+            background-color: #fafafa;
+            padding-left: 25px;
+        }
+
+        .menu-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon {
+            margin-right: 15px;
+            color: var(--text-light);
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .menu-text {
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .menu-right {
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            background-color: #ddd;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-active {
+            background-color: var(--primary-color);
+        }
+
+        .toggle-active::after {
+            transform: translateX(18px);
+        }
+
+        /* BIOMETRIC MODAL STYLES */
+        .bio-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .bio-card {
+            background: white;
+            width: 100%;
+            max-width: 320px;
+            border-radius: 30px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: bioPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bioPop {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .bio-icon-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(79, 172, 254, 0.1);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .bio-icon-container i {
+            font-size: 40px;
+            color: var(--primary-color);
+            transition: 0.3s;
+        }
+
+        .scanning-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+            display: none;
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0%;
+            }
+
+            50% {
+                top: 100%;
+            }
+
+            100% {
+                top: 0%;
+            }
+        }
+
+        .bio-card h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .bio-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .bio-success i {
+            color: #4ade80 !important;
+        }
+
+        .bio-success .bio-icon-container {
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .btn-cancel-bio {
+            background: #f0f2f5;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 12px;
+            color: var(--text-dark);
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* LOGOUT BUTTON */
+        .logout-btn {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 15px;
+            background: #fff;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(255, 82, 82, 0.1);
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 82, 82, 0.3);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 600px) {
+            .stats-container {
+                max-width: 600px;
+                margin-top: -50px;
+            }
+
+            .container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                max-width: 900px;
+            }
+
+            .full-width {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="profile-header">
+        <div class="profile-img-container" onclick="location.href='profile-info.html'" style="cursor: pointer;">
+            <img src="mypic.jpg.png" alt="Profile" class="profile-img">
+            <div class="edit-icon"><i class="fas fa-camera"></i></div>
+        </div>
+        <h2 class="profile-name">Bablu Tudu</h2>
+        <p class="profile-bio">Born to express, Not to impress.</p>
+    </header>
+
+    <div class="stats-container">
+        <div class="stat-item"><span class="stat-value">12</span><span class="stat-label">Listings</span></div>
+        <div class="stat-item"><span class="stat-value">1.2k</span><span class="stat-label">Views</span></div>
+        <div class="stat-item"><span class="stat-value">48</span><span class="stat-label">Reviews</span></div>
+        <div class="stat-item"><span class="stat-value">4.9</span><span class="stat-label"><i class="fas fa-star"
+                    style="color: #ffc107;"></i></span></div>
+    </div>
+
+    <div class="container">
+        <!-- Account Settings -->
+        <div class="section-card full-width">
+            <div class="section-header">
+                <i class="fas fa-user-cog"></i>
+                <h3>Account Settings</h3>
+                <a href="profile-info.html" class="section-link">Edit</a>
+            </div>
+            <a href="profile-info.html" class="menu-item" style="text-decoration: none;">
+                <div class="menu-left"><i class="fas fa-user menu-icon"></i><span class="menu-text">Personal
+                        Information</span></div>
+                <i class="fas fa-chevron-right menu-right"></i>
+            </a>
+            <a href="addresses.html" class="menu-item" style="text-decoration: none;">
+                <div class="menu-left"><i class="fas fa-map-marker-alt menu-icon"></i><span class="menu-text">Saved
+                        Addresses</span></div>
+                <i class="fas fa-chevron-right menu-right"></i>
+            </a>
+            <div class="menu-item">
+                <div class="menu-left"><i class="fas fa-bell menu-icon"></i><span class="menu-text">Notifications</span>
+                </div>
+                <div class="toggle-switch toggle-active"></div>
+            </div>
+        </div>
+
+        <!-- Security -->
+        <div class="section-card">
+            <div class="section-header">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Security & Finances</h3>
+            </div>
+            <a href="payment.html" class="menu-item" style="text-decoration: none;">
+                <div class="menu-left"><i class="fas fa-wallet menu-icon"></i><span class="menu-text">Payment
+                        Methods</span></div>
+                <i class="fas fa-chevron-right menu-right"></i>
+            </a>
+            <a href="changepass.html" class="menu-item" style="text-decoration: none;">
+                <div class="menu-left"><i class="fas fa-lock menu-icon"></i><span class="menu-text">Change
+                        Password</span></div>
+                <i class="fas fa-chevron-right menu-right"></i>
+            </a>
+            <div class="menu-item" id="bioMenuItem">
+                <div class="menu-left"><i class="fas fa-fingerprint menu-icon"></i><span class="menu-text">Biometric
+                        Login</span></div>
+                <div class="toggle-switch" id="bioToggle"></div>
+            </div>
+        </div>
+
+        <!-- Support -->
+        <div class="section-card">
+            <div class="section-header">
+                <i class="fas fa-life-ring"></i>
+                <h3>Support</h3>
+            </div>
+            <a href="help.html" class="menu-item" style="text-decoration: none;">
+                <div class="menu-left"><i class="fas fa-question-circle menu-icon"></i><span class="menu-text">Help
+                        Center</span></div>
+                <i class="fas fa-chevron-right menu-right"></i>
+            </a>
+            <a href="chat.html" class="menu-item" style="text-decoration: none;">
+                <div class="menu-left"><i class="fas fa-comment-dots menu-icon"></i><span class="menu-text">Chat with
+                        us</span></div>
+                <i class="fas fa-chevron-right menu-right"></i>
+            </a>
+            <a href="term.html" class="menu-item" style="text-decoration: none;">
+                <div class="menu-left"><i class="fas fa-file-contract menu-icon"></i><span class="menu-text">Terms &
+                        Privacy</span></div>
+                <i class="fas fa-chevron-right menu-right"></i>
+            </a>
+        </div>
+
+        <!-- Logout -->
+        <div class="full-width">
+            <a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+            <p style="text-align: center; margin-top: 15px; color: #999; font-size: 12px;">App Version 2.4.0</p>
+        </div>
+    </div>
+
+    <!-- Biometric Modal -->
+    <div class="bio-modal" id="bioModal">
+        <div class="bio-card">
+            <div class="bio-icon-container" id="iconBox">
+                <i class="fas fa-fingerprint" id="bioIcon"></i>
+                <div class="scanning-line" id="scanLine"></div>
+            </div>
+            <h2 id="bioTitle">Biometric Auth</h2>
+            <p id="bioDesc">Please place your finger on the sensor to enable biometric login.</p>
+            <button class="btn-cancel-bio" id="cancelBio">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        const bioMenuItem = document.getElementById('bioMenuItem');
+        const bioToggle = document.getElementById('bioToggle');
+        const bioModal = document.getElementById('bioModal');
+        const bioIcon = document.getElementById('bioIcon');
+        const iconBox = document.getElementById('iconBox');
+        const scanLine = document.getElementById('scanLine');
+        const bioTitle = document.getElementById('bioTitle');
+        const bioDesc = document.getElementById('bioDesc');
+        const cancelBio = document.getElementById('cancelBio');
+
+        let isBioEnabled = false;
+
+        bioMenuItem.addEventListener('click', () => {
+            if (!isBioEnabled) {
+                bioModal.style.display = 'flex';
+                startScanning();
+            } else {
+                bioToggle.classList.remove('toggle-active');
+                isBioEnabled = false;
+            }
+        });
+
+        function startScanning() {
+            scanLine.style.display = 'block';
+            bioTitle.innerText = "Scanning...";
+            bioDesc.innerText = "Processing your fingerprint...";
+
+            setTimeout(() => {
+                scanLine.style.display = 'none';
+                iconBox.classList.add('bio-success');
+                bioIcon.className = "fas fa-check-circle";
+                bioTitle.innerText = "Success!";
+                bioDesc.innerText = "Biometric login is now enabled.";
+                bioToggle.classList.add('toggle-active');
+                isBioEnabled = true;
+
+                setTimeout(() => {
+                    closeModal();
+                }, 1500);
+            }, 3000);
+        }
+
+        function closeModal() {
+            bioModal.style.display = 'none';
+            iconBox.classList.remove('bio-success');
+            bioIcon.className = "fas fa-fingerprint";
+            bioTitle.innerText = "Biometric Auth";
+            bioDesc.innerText = "Please place your finger on the sensor to enable biometric login.";
+        }
+
+        cancelBio.addEventListener('click', (e) => {
+            e.stopPropagation();
+            bioModal.style.display = 'none';
+        });
+
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+            if (toggle !== bioToggle) {
+                toggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggle.classList.toggle('toggle-active');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
