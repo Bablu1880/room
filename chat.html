@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Support | Lodge Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --primary-color: #4facfe;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-dark: #333;
+            --text-light: #777;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Chat Header */
+        .chat-header {
+            background: var(--primary-gradient);
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .user-info img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            margin-right: 12px;
+        }
+
+        .user-status h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .user-status p {
+            font-size: 12px;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-status p::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            margin-right: 5px;
+            display: inline-block;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #f9f9f9;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .received {
+            background: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            color: var(--text-dark);
+        }
+
+        .sent {
+            background: var(--primary-gradient);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            box-shadow: 0 4px 10px rgba(79, 172, 254, 0.2);
+        }
+
+        .time {
+            font-size: 10px;
+            opacity: 0.7;
+            margin-top: 5px;
+            display: block;
+            text-align: right;
+        }
+
+        /* Chat Input */
+        .chat-input-area {
+            background: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-wrapper {
+            flex-grow: 1;
+            background: #f0f2f5;
+            border-radius: 25px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .action-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .attachment-btn {
+            color: var(--text-light);
+            background: transparent;
+        }
+
+        .send-btn {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 10px rgba(79, 172, 254, 0.3);
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Suggestions */
+        .suggestions {
+            display: flex;
+            gap: 10px;
+            padding: 10px 20px;
+            background: #f9f9f9;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .suggestion-chip {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .suggestion-chip:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Hide scrollbar */
+        .suggestions::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Dropdown Menu Styles */
+        .header-actions {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            min-width: 180px;
+            display: none;
+            overflow: hidden;
+            z-index: 100;
+            margin-top: 10px;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            color: var(--text-dark);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: #f0faff;
+            color: var(--primary-color);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            font-size: 14px;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #eee;
+        }
+
+        .dropdown-item.danger {
+            color: #ff5252;
+        }
+
+        .dropdown-item.danger i {
+            color: #ff5252;
+        }
+
+        /* Profile Modal Styles */
+        .profile-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .profile-card {
+            background: white;
+            width: 100%;
+            max-width: 350px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .profile-card-header {
+            background: var(--primary-gradient);
+            height: 120px;
+            position: relative;
+        }
+
+        .profile-card-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 5px solid white;
+            position: absolute;
+            bottom: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            object-fit: cover;
+        }
+
+        .profile-card-body {
+            padding: 60px 25px 30px;
+            text-align: center;
+        }
+
+        .profile-card-body h2 {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .profile-card-body p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .agent-stats {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .stat-box h4 {
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+
+        .stat-box span {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #999;
+        }
+
+        .close-profile {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background: #f0f2f5;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-profile:hover {
+            background: #e2e5e9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="chat-header">
+        <a href="home.html" class="back-btn"><i class="fas fa-chevron-left"></i></a>
+        <div class="user-info">
+            <img src="logo.jpg" alt="Support Agent">
+            <div class="user-status">
+                <h3>Lodge Support</h3>
+                <p>Always Online</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <!-- Direct Dial Link -->
+            <a href="tel:8969971880" style="color: white; text-decoration: none; margin-right: 15px;">
+                <i class="fas fa-phone-alt" style="cursor: pointer; font-size: 18px;"></i>
+            </a>
+            <i class="fas fa-ellipsis-v" id="menuBtn" style="cursor: pointer; padding: 5px;"></i>
+
+            <div class="dropdown-menu" id="dropdownMenu">
+                <div class="dropdown-item" id="viewProfile">
+                    <i class="fas fa-user-circle"></i>
+                    <span>View Profile</span>
+                </div>
+                <div class="dropdown-item">
+                    <i class="fas fa-bell-slash"></i>
+                    <span>Mute Notifications</span>
+                </div>
+                <div class="dropdown-item">
+                    <i class="fas fa-file-export"></i>
+                    <span>Export Chat</span>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item" id="clearChat">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Clear Chat</span>
+                </div>
+                <div class="dropdown-item danger">
+                    <i class="fas fa-ban"></i>
+                    <span>Block Support</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Chat Messages -->
+    <div class="chat-container" id="chatBox">
+        <div class="message received">
+            Hello Bablu! 👋 How can I help you today with your property search or listing?
+            <span class="time">10:30 AM</span>
+        </div>
+        <div class="message sent">
+            I am looking for an affordable 1BHK near personal landmark.
+            <span class="time">10:31 AM</span>
+        </div>
+        <div class="message received">
+            Sure! I can help with that. Have you checked the "Listings" section in your dashboard?
+            <span class="time">10:32 AM</span>
+        </div>
+    </div>
+
+    <!-- Quick Suggestions -->
+    <div class="suggestions">
+        <div class="suggestion-chip">Check my listings</div>
+        <div class="suggestion-chip">Payment Issue</div>
+        <div class="suggestion-chip">Verification Status</div>
+        <div class="suggestion-chip">Contact Owner</div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="chat-input-area">
+        <button class="action-btn attachment-btn"><i class="fas fa-plus"></i></button>
+        <div class="input-wrapper">
+            <input type="text" id="userInput" placeholder="Type a message...">
+        </div>
+        <button class="action-btn send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+    </div>
+
+    <!-- Agent Profile Modal -->
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-card">
+            <div class="profile-card-header">
+                <img src="logo.jpg" class="profile-card-img" alt="Agent">
+            </div>
+            <div class="profile-card-body">
+                <h2>Lodge Support Agent</h2>
+                <p>Verified Support Expert • Level 3</p>
+                <div class="agent-stats">
+                    <div class="stat-box">
+                        <h4>4.9 ★</h4>
+                        <span>Rating</span>
+                    </div>
+                    <div class="stat-box">
+                        <h4>500+</h4>
+                        <span>Chats</span>
+                    </div>
+                    <div class="stat-box">
+                        <h4>5yr</h4>
+                        <span>Exp</span>
+                    </div>
+                </div>
+                <button class="close-profile" id="closeProfileBtn">Close Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chatBox');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        function sendMessage() {
+            const text = userInput.value.trim();
+            if (text !== "") {
+                const now = new Date();
+                const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'message sent';
+                msgDiv.innerHTML = `${text}<span class="time">${time}</span>`;
+                chatBox.appendChild(msgDiv);
+
+                userInput.value = "";
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Auto reply simulation
+                setTimeout(() => {
+                    const replyDiv = document.createElement('div');
+                    replyDiv.className = 'message received';
+                    replyDiv.innerHTML = `Thanks for your message! Our agent will connect with you shortly. 👨‍💻<span class="time">${time}</span>`;
+                    chatBox.appendChild(replyDiv);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 1000);
+            }
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Suggestions click
+        document.querySelectorAll('.suggestion-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                userInput.value = chip.innerText;
+                sendMessage();
+            });
+        });
+
+        // Dropdown Menu Logic
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', () => {
+            dropdownMenu.style.display = 'none';
+        });
+
+        // Clear Chat Logic
+        document.getElementById('clearChat').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear this chat?')) {
+                chatBox.innerHTML = `
+                    <div class="message received">
+                        Chat cleared. How can I help you again? 👋
+                        <span class="time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+                `;
+            }
+        });
+
+        // Profile Modal Logic
+        const profileModal = document.getElementById('profileModal');
+        const viewProfileBtn = document.getElementById('viewProfile');
+        const closeProfileBtn = document.getElementById('closeProfileBtn');
+
+        viewProfileBtn.addEventListener('click', () => {
+            profileModal.style.display = 'flex';
+        });
+
+        closeProfileBtn.addEventListener('click', () => {
+            profileModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === profileModal) {
+                profileModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
