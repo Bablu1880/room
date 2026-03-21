@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url(image3.jpg);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0 20px 25px rgba(197, 19, 19, 0.1);
+            width: 350px;
+            height: 600px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        p.note {
+            margin-top: 60px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        a {
+            color: #28a745;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Create Your Account</h2>
+        <form id="signupForm">
+            <input type="text" placeholder="Enter Your Full Name.." required>
+            <input type="email" placeholder="Enter Your Mobile Number" required>
+            <input type="email" placeholder="Enter Your Email id.." required>
+            <input type="password" placeholder="Enter Your Password.." required>
+            <input type="password" placeholder="Enter Your Confirm Password.." required>
+            <button type="submit">Create Account</button>
+        </form>
+        <p style="font-size: 12px; color: #777; margin-top: 15px;">
+            By signing up, you agree to our <a href="term.html" style="font-size: 12px; color: #28a745;">Terms &
+                Privacy</a>
+        </p>
+        <p class="note">Already registered? <a href="login.html">Login Here</a></p>
+    </div>
+
+    <script>
+        // Signup form submit handler
+        document.getElementById("signupForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // prevent actual form submission
+
+            // You can add validation here if needed
+
+            alert("Signup Successful! Redirecting to Login page...");
+
+            // Redirect to login page
+            window.location.href = "login.html";
+        });
+    </script>
+
+</body>
+
+</html>
